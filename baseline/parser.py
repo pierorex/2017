@@ -6,6 +6,7 @@ by Daniel Kohlsdorf
 '''
 
 from model import * 
+import numpy as np
 
 
 def is_header(line):
@@ -35,9 +36,9 @@ def select(from_file, where, toObject, index):
                 if obj != None:
                     data[index(cmp)] = obj
         i += 1
-        if i % 100000 == 0:
+        if i % 1000000 == 0:
             print("... reading line " + str(i) + " from file " + from_file)
-    return(header, data)        
+    return header, data
 
 
 def build_user(str_user, names):
@@ -47,7 +48,8 @@ def build_user(str_user, names):
         int(str_user[names["industry_id"]]),
         int(str_user[names["discipline_id"]]),
         str_user[names["country"]],
-        str_user[names["region"]]
+        str_user[names["region"]],
+        float(str_user[names["premium"]])
     )
     
 
@@ -67,15 +69,15 @@ class InteractionBuilder:
     def __init__(self, user_dict, item_dict):
         self.user_dict = user_dict
         self.item_dict = item_dict
+        self.interaction = None
     
     def build_interaction(self, str_inter, names):
         if int(str_inter[names['item_id']]) in self.item_dict and int(str_inter[names['user_id']]) in self.user_dict:
-            return Interaction(
+            self.interaction = Interaction(
                 self.user_dict[int(str_inter[names['user_id']])],
                 self.item_dict[int(str_inter[names['item_id']])],
                 int(str_inter[names["interaction_type"]])
             )
+            return self.interaction
         else:
             return None
-
-
