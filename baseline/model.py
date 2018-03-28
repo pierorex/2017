@@ -7,7 +7,8 @@ by Daniel Kohlsdorf
 
 
 class User:
-    def __init__(self, title, clevel, indus, disc, country, region, premium):
+    def __init__(self, title, clevel, indus, disc, country, region, premium, numb_work_experiences, years_experience,
+                 years_experience_current, edu_degree, edu_fieldofstudies, wtcj):
         self.title   = title
         self.clevel  = clevel
         self.indus   = indus
@@ -15,6 +16,12 @@ class User:
         self.country = country
         self.region  = region
         self.premium = premium
+        self.numb_work_experiences = numb_work_experiences
+        self.years_experience = years_experience
+        self.years_experience_current = years_experience_current
+        self.edu_degree = edu_degree
+        self.edu_fieldofstudies = edu_fieldofstudies
+        self.wtcj = wtcj
 
     def __repr__(self):
         return "\nthis user:{},{},{},{},{},{},{} \nends here\n"\

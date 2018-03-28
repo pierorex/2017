@@ -49,7 +49,13 @@ def build_user(str_user, names):
         int(str_user[names["discipline_id"]]),
         str_user[names["country"]],
         str_user[names["region"]],
-        float(str_user[names["premium"]])
+        float(str_user[names["premium"]]),
+        int(str_user[names["experience_n_entries_class"]]),
+        int(str_user[names["experience_years_experience"]]),
+        int(str_user[names["experience_years_in_current"]]),
+        int(str_user[names["edu_degree"]]),
+        str_user[names["edu_fieldofstudies"]],
+        str_user[names["wtcj"]]
     )
     
 
