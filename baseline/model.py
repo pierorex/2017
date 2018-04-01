@@ -29,27 +29,32 @@ class User:
 
 
 class Item:
-    def __init__(self, title, clevel, indus, disc, country, region):
+    def __init__(self, title, clevel, indus, disc, country, region, is_payed, employment, tags, created_at):
         self.title   = title
         self.clevel  = clevel
         self.indus   = indus
         self.disc    = disc
         self.country = country
         self.region  = region
+        self.is_payed = is_payed
+        self.employment = employment
+        self.tags = tags
+        self.created_at = created_at
 
 
 class Interaction:
-    def __init__(self, user, item, interaction_type):
+    def __init__(self, user, item, interaction_type, created_at):
         self.user = user
         self.item = item
         self.interaction_type = interaction_type
+        self.created_at = created_at
 
     @staticmethod
     def save(interactions, file):
         import csv
         users_keys = list(['user_{}'.format(key) for key in interactions[0].user.__dict__.keys()])
         item_keys = list(['item_{}'.format(key) for key in interactions[0].item.__dict__.keys()])
-        header = users_keys + item_keys + ['interaction_type']
+        header = users_keys + item_keys + ['interaction_type', 'interaction_created_at']
         print(type(header))
 
         with open(file, 'w') as output_file:
@@ -60,7 +65,7 @@ class Interaction:
             for i in interactions:
                 user_values = list(i.user.__dict__.values())
                 item_values = list(i.item.__dict__.values())
-                csv_writer.writerow(user_values + item_values + [i.interaction_type])
+                csv_writer.writerow(user_values + item_values + [i.interaction_type, i.created_at])
 
     def title_match(self):
         return float(len(set(self.user.title).intersection(set(self.item.title))))

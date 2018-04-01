@@ -54,8 +54,8 @@ def build_user(str_user, names):
         int(str_user[names["experience_years_experience"]]),
         int(str_user[names["experience_years_in_current"]]),
         int(str_user[names["edu_degree"]]),
-        str_user[names["edu_fieldofstudies"]],
-        str_user[names["wtcj"]]
+        [int(x) for x in str_user[names["edu_fieldofstudies"]].split(",") if len(x) > 0],
+        int(str_user[names["wtcj"]])
     )
     
 
@@ -66,7 +66,11 @@ def build_item(str_item, names):
         int(str_item[names["industry_id"]]),
         int(str_item[names["discipline_id"]]),
         str_item[names["country"]],
-        str_item[names["region"]]
+        str_item[names["region"]],
+        int(str_item[names["is_payed"]]),
+        int(str_item[names["employment"]]),
+        [int(x) for x in str_item[names["tags"]].split(",") if len(x) > 0],
+        str_item[names["created_at"]]
     )
 
 
@@ -82,7 +86,8 @@ class InteractionBuilder:
             self.interaction = Interaction(
                 self.user_dict[int(str_inter[names['user_id']])],
                 self.item_dict[int(str_inter[names['item_id']])],
-                int(str_inter[names["interaction_type"]])
+                int(str_inter[names["interaction_type"]]),
+                str_inter[names["created_at"]],
             )
             return self.interaction
         else:
